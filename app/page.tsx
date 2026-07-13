@@ -87,7 +87,7 @@ function ContactButton({
 export default function MaintenancePage() {
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-canvas text-white selection:bg-energy selection:text-canvas">
-      <section className="relative isolate h-[55vh] overflow-hidden sm:h-[60vh] lg:h-[65vh]" aria-labelledby="maintenance-heading">
+      <section className="relative isolate min-h-[720px] overflow-hidden sm:min-h-[760px] lg:min-h-[820px] xl:min-h-screen" aria-labelledby="maintenance-heading">
         <Image
           src="/images/hero/hero-home.png"
           alt=""
@@ -100,12 +100,12 @@ export default function MaintenancePage() {
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(5,5,5,.80)_70%,#050505_100%)]" aria-hidden="true" />
         <div className="pointer-events-none absolute left-1/2 top-0 h-px w-4/5 -translate-x-1/2 bg-gradient-to-r from-transparent via-energy/60 to-transparent" />
 
-        <div className="mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-center px-5 py-7 text-center sm:px-8 lg:px-12">
+        <div className="mx-auto flex min-h-full w-full max-w-7xl flex-col items-center justify-center px-5 py-7 text-center sm:px-8 lg:px-12">
           <header className="animate-fade-up" aria-label="BELNEX ENERGY">
-            <Image src="/logo/logo-horizontal.png" alt="BELNEX ENERGY" width={640} height={160} priority sizes="(max-width: 639px) 200px, (max-width: 1023px) 260px, 320px" className="mx-auto h-auto w-[280px] object-contain sm:w-[380px] lg:w-[520px] xl:w-[600px]" />
+            <Image src="/logo/logo-horizontal.png" alt="BELNEX ENERGY" width={640} height={160} priority sizes="(max-width: 639px) 200px, (max-width: 1023px) 260px, 320px" className="mx-auto h-auto w-[280px] object-contain sm:w-[380px] lg:w-[440px] xl:w-[480px] 2xl:w-[600px]" />
             <p className="mt-5 text-[10px] font-medium uppercase tracking-[0.36em] text-[#B3B3B3] sm:text-xs">Powering Smart Living</p>
           </header>
-          <div className="animate-fade-up [animation-delay:100ms] mt-10 text-center sm:mt-12">
+          <div className="animate-fade-up [animation-delay:100ms] mt-8 text-center sm:mt-10 lg:mt-12">
             <div className="mb-4 flex items-center justify-center gap-2 text-energy">
               <Sparkles className="size-4" aria-hidden="true" />
               <span className="text-xs font-bold uppercase tracking-[0.22em]">Belgium · Professional Electrical Solutions</span>
@@ -120,7 +120,7 @@ export default function MaintenancePage() {
         </div>
       </section>
 
-      <div className="relative z-10 mx-auto -mt-[70px] w-full max-w-7xl px-5 pb-10 sm:-mt-[80px] sm:px-8 sm:pb-14 lg:px-12">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-10 sm:px-8 sm:pb-14 lg:px-12 2xl:-mt-[80px]">
         <section className="mx-auto w-full max-w-5xl" aria-label="Maintenance information">
           <article className="animate-fade-up [animation-delay:200ms] rounded-3xl border border-white/10 bg-white/[0.045] p-5 shadow-[0_20px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-8 lg:p-10">
             <div className="grid gap-10 lg:grid-cols-[1.12fr_.88fr] lg:gap-12">
