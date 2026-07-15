@@ -59,4 +59,4 @@ docs/
 
 ## Deploy
 
-Deploy automático no Netlify a cada push em `main`. O código também é espelhado, em marcos de entrega, no repositório do cliente (`Gilbertoas90/belnex-maintenance`) como remote `client`.
+Deploy automático no Netlify a cada push em `main`. O código também é espelhado, em marcos de entrega, no repositório do cliente (`Gilbertoas90/belnex-energy-website`) como remote `client`.
