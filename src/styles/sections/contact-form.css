@@ -1,0 +1,137 @@
+.contact__inner {
+  padding-block: var(--space-section);
+  display: grid;
+  gap: var(--space-7);
+}
+
+.contact__title {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-3);
+}
+
+.contact__text {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+  max-width: 32rem;
+}
+
+.contact__meta {
+  display: grid;
+  gap: var(--space-3);
+  font-weight: 600;
+}
+
+.contact__meta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: color var(--duration-base) var(--ease-standard);
+}
+
+.contact__meta-link:hover {
+  color: var(--color-accent);
+}
+
+.contact__meta-icon {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
+.contact__meta-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.contact__meta-note {
+  font-weight: 400;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.contact__form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.contact__form[hidden] {
+  display: none;
+}
+
+.form-field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.form-field label {
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  padding: var(--space-3);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+}
+
+.form-field input:focus-visible,
+.form-field select:focus-visible,
+.form-field textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+.form-field input[aria-invalid="true"],
+.form-field select[aria-invalid="true"],
+.form-field textarea[aria-invalid="true"] {
+  border-color: var(--color-error);
+}
+
+.form-error {
+  min-height: 1.2em;
+  font-size: var(--text-xs);
+  color: var(--color-error);
+}
+
+.contact__status {
+  min-height: 1.5em;
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.contact__status[data-state="error"] {
+  color: var(--color-error);
+}
+
+.contact__submit {
+  justify-self: start;
+}
+
+.contact__success {
+  padding: var(--space-5);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+}
+
+.contact__success h3 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-2);
+  color: var(--color-accent);
+}
+
+.contact__success p {
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 1024px) {
+  .contact__inner {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+}

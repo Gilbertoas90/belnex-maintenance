@@ -1,0 +1,179 @@
+.what-we-do__inner {
+  padding-block: var(--space-section);
+}
+
+.what-we-do__intro {
+  max-width: 38rem;
+  margin-bottom: var(--space-6);
+}
+
+.what-we-do__title {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-3);
+}
+
+.what-we-do__text {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.what-we-do__carousel {
+  position: relative;
+}
+
+.what-we-do__track {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: var(--space-2);
+}
+
+.what-we-do__track::-webkit-scrollbar {
+  display: none;
+}
+
+.what-we-do__card {
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  isolation: isolate;
+  transition: border-color var(--duration-base) var(--ease-standard),
+    transform var(--duration-base) var(--ease-standard);
+}
+
+.what-we-do__card:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-4px);
+}
+
+.what-we-do__card-media {
+  /* Fixed px height, not aspect-ratio: in a column flex item with
+     flex-basis: auto, browsers size the "auto" height from the image's own
+     intrinsic ratio rather than this box's aspect-ratio, so mixed-ratio
+     source photos end up with mismatched card heights. A hard height
+     sidesteps that entirely (card width is a fixed 280px — see
+     .what-we-do__card — so this stays a constant 4:3-ish crop). */
+  position: relative;
+  z-index: 0;
+  height: 374px;
+  flex-shrink: 0;
+}
+
+.what-we-do__card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.what-we-do__card-body {
+  /* Fixed height (not stretched via the flex row's default align-items) so
+     every card is the same total height regardless of description length or
+     tag count. Sized to the "normal" case (~2 rows of tags); a category with
+     unusually many services (e.g. Electrical's 6) scrolls internally instead
+     of stretching every other card to match — see docs/spec.md request to
+     avoid large empty gaps under short cards. */
+  position: relative;
+  z-index: 1;
+  height: 310px;
+  padding: var(--space-4);
+  background: var(--color-bg-surface);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-strong) transparent;
+}
+
+.what-we-do__card-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.what-we-do__card-body::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: var(--radius-full);
+}
+
+.what-we-do__card-icon {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+
+.what-we-do__card-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.what-we-do__card-title {
+  font-size: var(--text-md);
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-2);
+}
+
+.what-we-do__card-desc {
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+  /* Reserve space for the longest description (4 lines) so the tags below
+     start at the same y position on every card, regardless of how much
+     text a given category has. */
+  min-height: calc(var(--leading-normal) * 4em);
+}
+
+.what-we-do__card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.what-we-do__card-tags li {
+  font-size: var(--text-xs);
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+}
+
+.what-we-do__controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.what-we-do__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-strong);
+  background: transparent;
+  color: var(--color-text-primary);
+  transition: border-color var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard);
+}
+
+.what-we-do__nav svg {
+  width: 18px;
+  height: 18px;
+}
+
+.what-we-do__nav:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.what-we-do__nav:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}

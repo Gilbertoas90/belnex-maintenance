@@ -1,0 +1,53 @@
+.service-icons {
+  padding-block: var(--space-6);
+  border-block: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+}
+
+.service-icons__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+}
+
+.service-icons__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.service-icons__icon {
+  width: 32px;
+  height: 32px;
+  color: var(--color-accent);
+}
+
+.service-icons__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.service-icons__label {
+  font-weight: 700;
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.service-icons__desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 768px) {
+  .service-icons__list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .service-icons__list {
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-4);
+  }
+}

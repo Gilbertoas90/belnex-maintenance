@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Belnex Energy — Smart Energy for Modern Living</title>
+    <meta
+      name="description"
+      content="Belnex Energy delivers integrated electrical, solar, smart home, battery, EV charging and heat pump installations for homes and businesses across Belgium. Request a quote today."
+    />
+    <link rel="canonical" href="https://belnexenergy.be/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Preload self-hosted fonts to shrink the fallback→final swap window (reduces CLS, see docs/adr/0002) -->
+    <link rel="preload" href="/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/orbitron-variable.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Open Graph / Twitter Card — see docs/adr/0006-seo-metadata.md -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Belnex Energy" />
+    <meta property="og:title" content="Belnex Energy — Smart Energy for Modern Living" />
+    <meta
+      property="og:description"
+      content="Integrated electrical, solar, smart home, battery, EV charging and heat pump installations for homes and businesses across Belgium."
+    />
+    <meta property="og:image" content="https://belnexenergy.be/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://belnexenergy.be/" />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Belnex Energy — Smart Energy for Modern Living" />
+    <meta
+      name="twitter:description"
+      content="Integrated electrical, solar, smart home, battery, EV charging and heat pump installations for homes and businesses across Belgium."
+    />
+    <meta name="twitter:image" content="https://belnexenergy.be/og-image.png" />
+
+    <!--
+      Physical street address still pending — see docs/spec.md §7. Phone,
+      WhatsApp, email and VAT below are the real business details from the
+      client's legacy site (belnexenergy.be).
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ElectricalContractor",
+        "name": "Belnex Energy",
+        "description": "Electrical, smart home, solar, EV charging, security and networking installations for homes and businesses across Belgium.",
+        "url": "https://belnexenergy.be/",
+        "telephone": "+32 471 65 89 10",
+        "email": "contact@belnexenergy.be",
+        "vatID": "BE1038194067",
+        "areaServed": {
+          "@type": "Country",
+          "name": "Belgium"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "BE"
+        },
+        "makesOffer": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Electrical Installations" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Electrical Renovation" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Electrical Inspection" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Smart Home" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "KNX Automation" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Solar Energy" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Battery Storage" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "EV Chargers" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Security Cameras" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "CCTV" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Networking" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Fiber Optics" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Wi-Fi Solutions" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Commercial Electrical" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Industrial Electrical" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Maintenance" } }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content" data-i18n="meta.skipLink">Skip to main content</a>
+
+    <header id="site-header" class="site-header">
+      <a
+        href="#hero"
+        class="site-header__logo"
+        aria-label="Belnex Energy — home"
+        data-i18n-attr-aria-label="header.logoAria"
+      >
+        <svg class="site-header__logo-bolt" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M18 4 L9 18h6l-2 10 11-16h-7l1-8z" fill="#8DFF00" />
+        </svg>
+        <span class="site-header__logo-text">
+          <span class="site-header__wordmark">BEL<span class="accent">NEX</span> ENERGY</span>
+          <span class="site-header__tagline" data-i18n="header.tagline">Powering Smart Living</span>
+        </span>
+      </a>
+
+      <nav class="site-header__nav" aria-label="Primary">
+        <ul class="site-header__nav-list">
+          <li><a class="site-header__nav-link" href="#services-strip" data-i18n="nav.services">Services</a></li>
+          <li><a class="site-header__nav-link" href="#what-we-do" data-i18n="nav.solutions">Solutions</a></li>
+          <li><a class="site-header__nav-link" href="#about" data-i18n="nav.about">About</a></li>
+          <li><a class="site-header__nav-link" href="#faq" data-i18n="nav.faq">FAQ</a></li>
+          <li><a class="site-header__nav-link" href="#contact" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-header__actions">
+        <div class="lang-switcher" data-lang-switcher></div>
+        <a class="btn btn--primary site-header__cta" href="#contact" data-i18n="common.requestQuote">Request a Quote</a>
+        <button
+          type="button"
+          class="site-header__menu-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+          aria-label="Open menu"
+          data-i18n-attr-aria-label="header.menuAria"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+    </header>
+
+    <!--
+      Deliberately a sibling of <header>, not a child: <header> has
+      backdrop-filter for the frosted-glass desktop nav, and per spec,
+      filter/backdrop-filter/transform on an ancestor turns it into the
+      containing block for position:fixed descendants. That silently broke
+      this menu's fixed positioning/stacking (content behind it showed
+      through instead of the opaque background) — moving it out from under
+      the filtered ancestor fixes it without giving up the header effect.
+    -->
+    <nav id="mobile-nav" class="site-header__mobile-nav" aria-label="Mobile">
+      <a class="site-header__mobile-nav-link" href="#services-strip" data-i18n="nav.services">Services</a>
+      <a class="site-header__mobile-nav-link" href="#what-we-do" data-i18n="nav.solutions">Solutions</a>
+      <a class="site-header__mobile-nav-link" href="#about" data-i18n="nav.about">About</a>
+      <a class="site-header__mobile-nav-link" href="#faq" data-i18n="nav.faq">FAQ</a>
+      <a class="site-header__mobile-nav-link" href="#contact" data-i18n="nav.contact">Contact</a>
+      <a class="btn btn--primary site-header__mobile-cta" href="#contact" data-i18n="common.requestQuote">Request a Quote</a>
+    </nav>
+
+    <main id="main-content">
+      <section id="hero" class="hero">
+        <div class="hero__media" aria-hidden="true">
+          <picture>
+            <source
+              type="image/avif"
+              srcset="/images/smartHomeNight-480.avif 480w, /images/smartHomeNight-768.avif 768w, /images/smartHomeNight-1024.avif 1024w, /images/smartHomeNight-1440.avif 1440w, /images/smartHomeNight-1920.avif 1920w"
+              sizes="100vw"
+            />
+            <source
+              type="image/webp"
+              srcset="/images/smartHomeNight-480.webp 480w, /images/smartHomeNight-768.webp 768w, /images/smartHomeNight-1024.webp 1024w, /images/smartHomeNight-1440.webp 1440w, /images/smartHomeNight-1920.webp 1920w"
+              sizes="100vw"
+            />
+            <img
+              src="/images/smartHomeNight-1920.jpg"
+              srcset="/images/smartHomeNight-480.jpg 480w, /images/smartHomeNight-768.jpg 768w, /images/smartHomeNight-1024.jpg 1024w, /images/smartHomeNight-1440.jpg 1440w, /images/smartHomeNight-1920.jpg 1920w"
+              sizes="100vw"
+              width="1920"
+              height="1280"
+              alt=""
+              fetchpriority="high"
+              decoding="async"
+            />
+          </picture>
+          <div class="hero__scrim"></div>
+        </div>
+
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <p class="eyebrow" data-i18n="hero.eyebrow">Smart Energy for a Modern Life</p>
+            <h1 class="hero__title" data-i18n-html="hero.titleHtml">
+              Smart Energy for Modern <span class="accent">Living</span>
+            </h1>
+            <p class="hero__subtitle" data-i18n="hero.subtitle">
+              Intelligent solutions in electrical, solar and automation for homes and businesses
+              in Belgium.
+            </p>
+            <a class="btn btn--primary" href="#contact" data-i18n="common.requestQuote">Request a Quote</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="services-strip" class="service-icons">
+        <h2 class="visually-hidden" data-i18n="servicesStrip.heading">Our services</h2>
+        <ul class="container service-icons__list"></ul>
+      </section>
+
+      <section id="what-we-do" class="what-we-do">
+        <div class="container what-we-do__inner">
+          <div class="what-we-do__intro reveal">
+            <p class="eyebrow" data-i18n="whatWeDo.eyebrow">What We Do</p>
+            <h2 class="what-we-do__title" data-i18n="whatWeDo.title">Complete solutions in energy and automation</h2>
+            <p class="what-we-do__text" data-i18n="whatWeDo.text">
+              At Belnex Energy, we combine technology, innovation and quality to deliver
+              intelligent solutions that increase comfort, reduce costs and protect the
+              environment.
+            </p>
+            <a class="btn btn--secondary" href="#services-strip" data-i18n="whatWeDo.cta">View All Services →</a>
+          </div>
+
+          <div class="what-we-do__carousel">
+            <ul class="what-we-do__track" data-carousel-track></ul>
+            <div class="what-we-do__controls">
+              <button
+                type="button"
+                class="what-we-do__nav"
+                data-dir="prev"
+                aria-label="Previous services"
+                data-i18n-attr-aria-label="carousel.prevAria"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                class="what-we-do__nav"
+                data-dir="next"
+                aria-label="Next services"
+                data-i18n-attr-aria-label="carousel.nextAria"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="social-proof" class="social-proof">
+        <div class="container">
+          <h2 class="visually-hidden" data-i18n="socialProof.heading">Why homeowners and businesses trust Belnex</h2>
+
+          <!-- Stats below are illustrative placeholders pending real company figures — see docs/spec.md §7 -->
+          <ul class="social-proof__stats reveal" data-placeholder="true">
+            <li class="social-proof__stat">
+              <span class="social-proof__stat-number" data-count-to="10" data-suffix="+">0</span>
+              <span class="social-proof__stat-label" data-i18n="socialProof.stats.0.label">Years serving Belgium</span>
+            </li>
+            <li class="social-proof__stat">
+              <span class="social-proof__stat-number" data-count-to="500" data-suffix="+">0</span>
+              <span class="social-proof__stat-label" data-i18n="socialProof.stats.1.label">Installations completed</span>
+            </li>
+            <li class="social-proof__stat">
+              <span class="social-proof__stat-number" data-count-to="100" data-suffix="%">0</span>
+              <span class="social-proof__stat-label" data-i18n="socialProof.stats.2.label">Certified &amp; insured</span>
+            </li>
+          </ul>
+
+          <!-- Testimonials below are illustrative placeholders pending real client reviews -->
+          <ul class="social-proof__testimonials reveal" data-placeholder="true">
+            <li class="social-proof__testimonial">
+              <blockquote data-i18n="socialProof.testimonials.0.quote">
+                “The team handled our solar and battery installation end to end — no juggling
+                separate contractors. Clean work, clear communication.”
+              </blockquote>
+              <p class="social-proof__author" data-i18n="socialProof.testimonials.0.author">Els V. — Homeowner, Antwerp</p>
+            </li>
+            <li class="social-proof__testimonial">
+              <blockquote data-i18n="socialProof.testimonials.1.quote">
+                “We needed EV chargers rolled out across our parking facility without disrupting
+                operations. Belnex scoped it properly and delivered on schedule.”
+              </blockquote>
+              <p class="social-proof__author" data-i18n="socialProof.testimonials.1.author">Marc D. — Facility Manager, Brussels</p>
+            </li>
+          </ul>
+
+          <!-- Certification badges below are placeholder labels pending real certification numbers -->
+          <ul class="social-proof__badges reveal" data-placeholder="true">
+            <li class="social-proof__badge" data-i18n="socialProof.badges.0">RESCert Certified</li>
+            <li class="social-proof__badge" data-i18n="socialProof.badges.1">VCA Safety Certified</li>
+            <li class="social-proof__badge" data-i18n="socialProof.badges.2">Fully Insured</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="about" class="about">
+        <div class="container about__inner">
+          <!-- Placeholder avatar (initials) pending a real founder/team photo -->
+          <div class="about__visual reveal" data-placeholder="true" aria-hidden="true">
+            <span class="about__initials">GA</span>
+          </div>
+          <div class="about__content reveal">
+            <p class="eyebrow" data-i18n="about.eyebrow">About Belnex</p>
+            <h2 class="about__title" data-i18n="about.title">One team, the whole energy ecosystem</h2>
+            <p class="about__text" data-i18n="about.text">
+              Belnex Energy was founded by Gilberto Assunção to solve a simple problem: homeowners
+              and businesses were juggling separate contractors for electrical work, solar,
+              batteries, EV charging and smart home automation. We built a single team that
+              handles all of it — one point of contact, one warranty, and installations designed
+              to work together from day one.
+            </p>
+            <p class="about__founder" data-i18n="about.founder">Gilberto Assunção — Founder &amp; CEO</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="faq">
+        <div class="container faq__inner">
+          <div class="faq__intro reveal">
+            <p class="eyebrow" data-i18n="faq.eyebrow">FAQ</p>
+            <h2 class="faq__title" data-i18n="faq.title">Frequently asked questions</h2>
+          </div>
+
+          <div class="faq__list reveal">
+            <details class="faq__item">
+              <summary class="faq__question" data-i18n="faq.items.0.question">
+                Do you work with both residential and commercial clients?
+              </summary>
+              <p class="faq__answer" data-i18n="faq.items.0.answer">
+                Yes. We design and install for homeowners and businesses across Belgium, from a
+                single EV charger to full commercial solar and battery systems.
+              </p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question" data-i18n="faq.items.1.question">How long does an installation take?</summary>
+              <p class="faq__answer" data-i18n="faq.items.1.answer">
+                Most residential projects (electrical, solar, EV charger) are completed in 1–3
+                days on site. Larger commercial jobs are scoped and scheduled individually after
+                a site visit.
+              </p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question" data-i18n="faq.items.2.question">Are your installations certified?</summary>
+              <p class="faq__answer" data-i18n="faq.items.2.answer">
+                Yes. All work is inspected and certified against Belgian electrical code, and our
+                team holds RESCert and VCA safety certifications.
+              </p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question" data-i18n="faq.items.3.question">
+                Can I combine solar, batteries and an EV charger in one project?
+              </summary>
+              <p class="faq__answer" data-i18n="faq.items.3.answer">
+                That is exactly the kind of integrated project we specialize in — one team, one
+                design, no coordination gaps between separate contractors.
+              </p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question" data-i18n="faq.items.4.question">Do you offer financing?</summary>
+              <p class="faq__answer" data-i18n="faq.items.4.answer">
+                We can point you to financing partners as part of your quote — ask your Belnex
+                advisor about current options for your project.
+              </p>
+            </details>
+
+            <details class="faq__item">
+              <summary class="faq__question" data-i18n="faq.items.5.question">What areas in Belgium do you serve?</summary>
+              <p class="faq__answer" data-i18n="faq.items.5.answer">
+                We currently serve homeowners and businesses across Belgium. Get in touch with
+                your location and we will confirm coverage for your project.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section id="final-cta" class="final-cta">
+        <div class="container final-cta__inner reveal">
+          <h2 class="final-cta__title" data-i18n="finalCta.title">Ready to power your next project?</h2>
+          <p class="final-cta__subtitle" data-i18n="finalCta.subtitle">Get a tailored quote from our team in less than 24 hours.</p>
+          <a class="btn btn--primary final-cta__button" href="#contact" data-i18n="common.requestQuote">Request a Quote</a>
+        </div>
+      </section>
+
+      <section id="contact" class="contact">
+        <div class="container contact__inner">
+          <div class="contact__intro reveal">
+            <p class="eyebrow" data-i18n="contact.eyebrow">Get in Touch</p>
+            <h2 class="contact__title" data-i18n="contact.title">Request your quote</h2>
+            <p class="contact__text" data-i18n="contact.text">
+              Tell us about your project and we'll get back to you within 1 business day.
+            </p>
+            <!-- Physical street address still pending — phone/WhatsApp/email are real (client's legacy site) -->
+            <ul class="contact__meta">
+              <li>
+                <a class="contact__meta-link" href="tel:+32471658910">
+                  <span class="contact__meta-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                      <path d="M6.6 10.8a15.7 15.7 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                  +32 471 65 89 10
+                </a>
+              </li>
+              <li>
+                <a class="contact__meta-link" href="https://wa.me/32471658910" target="_blank" rel="noopener noreferrer">
+                  <span class="contact__meta-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                      <path d="M12 3a9 9 0 0 0-7.8 13.4L3 21l4.7-1.2A9 9 0 1 0 12 3z" stroke-linejoin="round" />
+                      <path d="M8.5 8.8c.2-.5.5-.5.8-.5h.6c.2 0 .4 0 .6.4.2.5.7 1.6.7 1.7.1.1.1.3 0 .4-.1.2-.2.3-.3.4l-.4.5c-.1.2-.3.3-.1.6.2.3.8 1.3 1.8 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.6-.7c.2-.3.4-.2.6-.1l1.6.8c.2.1.3.2.4.3.1.2.1.9-.2 1.4-.3.5-1.4 1.1-2 1.1-.5 0-1.2 0-3.3-1-2.6-1.2-4.2-3.7-4.4-4-.1-.2-.9-1.3-.9-2.4 0-1.1.5-1.7.7-1.9z" />
+                    </svg>
+                  </span>
+                  <span data-i18n="contact.whatsapp">WhatsApp</span>
+                </a>
+              </li>
+              <li>
+                <a class="contact__meta-link" href="mailto:contact@belnexenergy.be">
+                  <span class="contact__meta-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                      <rect x="3" y="5" width="18" height="14" rx="2" />
+                      <path d="m4 7 8 6 8-6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                  contact@belnexenergy.be
+                </a>
+              </li>
+              <li class="contact__meta-note" data-i18n="contact.metaNote">Serving homeowners and businesses across Belgium</li>
+            </ul>
+          </div>
+
+          <div class="contact__form-wrap reveal">
+            <form
+              id="quote-form"
+              class="contact__form"
+              name="quote-form"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              novalidate
+            >
+              <input type="hidden" name="form-name" value="quote-form" />
+              <p hidden>
+                <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+              </p>
+
+              <div class="form-field">
+                <label for="name" data-i18n="contact.form.nameLabel">Full name</label>
+                <input id="name" name="name" type="text" required autocomplete="name" />
+                <p class="form-error" data-error-for="name" role="alert"></p>
+              </div>
+
+              <div class="form-field">
+                <label for="email" data-i18n="contact.form.emailLabel">Email</label>
+                <input id="email" name="email" type="email" required autocomplete="email" />
+                <p class="form-error" data-error-for="email" role="alert"></p>
+              </div>
+
+              <div class="form-field">
+                <label for="phone" data-i18n="contact.form.phoneLabel">Phone</label>
+                <input id="phone" name="phone" type="tel" required autocomplete="tel" />
+                <p class="form-error" data-error-for="phone" role="alert"></p>
+              </div>
+
+              <div class="form-field">
+                <label for="service" data-i18n="contact.form.serviceLabel">Service of interest</label>
+                <select id="service" name="service" required>
+                  <option value="" disabled selected data-i18n="contact.form.servicePlaceholder">Select a service</option>
+                </select>
+                <p class="form-error" data-error-for="service" role="alert"></p>
+              </div>
+
+              <div class="form-field form-field--full">
+                <label for="message" data-i18n="contact.form.messageLabel">Project details</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <p class="form-error" data-error-for="message" role="alert"></p>
+              </div>
+
+              <p class="contact__status" data-form-status role="status" aria-live="polite"></p>
+
+              <button type="submit" class="btn btn--primary contact__submit" data-i18n="contact.form.submit">
+                Request a Quote
+              </button>
+            </form>
+
+            <div class="contact__success" data-form-success hidden tabindex="-1">
+              <h3 data-i18n="contact.form.successTitle">Thanks — your request is in.</h3>
+              <p data-i18n="contact.form.successText">We'll contact you within 1 business day to schedule your quote.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="site-footer" class="site-footer">
+      <div class="container site-footer__inner">
+        <a
+          href="#hero"
+          class="site-footer__logo"
+          aria-label="Belnex Energy — home"
+          data-i18n-attr-aria-label="header.logoAria"
+        >
+          <svg class="site-footer__logo-bolt" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M18 4 L9 18h6l-2 10 11-16h-7l1-8z" fill="#8DFF00" />
+          </svg>
+          <span class="site-footer__wordmark">BEL<span class="accent">NEX</span> ENERGY</span>
+        </a>
+
+        <nav class="site-footer__nav" aria-label="Footer">
+          <ul class="site-footer__nav-list">
+            <li><a href="#services-strip" data-i18n="nav.services">Services</a></li>
+            <li><a href="#what-we-do" data-i18n="nav.solutions">Solutions</a></li>
+            <li><a href="#about" data-i18n="nav.about">About</a></li>
+            <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
+            <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <!-- Placeholder social links pending real profile URLs -->
+        <ul class="site-footer__social" data-placeholder="true">
+          <li>
+            <a href="#" aria-label="Belnex Energy on Facebook" data-i18n-attr-aria-label="footer.social.facebook">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h3l1-3h-4v-1.5c0-.3.2-.5.5-.5z" />
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="Belnex Energy on Instagram" data-i18n-attr-aria-label="footer.social.instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="4" y="4" width="16" height="16" rx="4" />
+                <circle cx="12" cy="12" r="3.2" />
+                <circle cx="16.2" cy="7.8" r="0.6" fill="currentColor" stroke="none" />
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="Belnex Energy on LinkedIn" data-i18n-attr-aria-label="footer.social.linkedin">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="4" y="4" width="16" height="16" rx="2" />
+                <path d="M8 10.5v5.5M8 8v.01M12 16v-3.2c0-1.3 1-2.3 2.2-2.3s2 1 2 2.3V16" stroke-linecap="round" />
+              </svg>
+            </a>
+          </li>
+        </ul>
+
+        <div class="site-footer__meta">
+          <p class="site-footer__legal">
+            © <span id="current-year">2026</span> Belnex Energy. <span data-i18n="footer.legal">All rights reserved.</span>
+          </p>
+          <p class="site-footer__developer">
+            Desenvolvido por
+            <a
+              href="https://brunnomota.com.br"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="site-footer__developer-link"
+            >
+              Brunno Mota
+              <svg class="site-footer__developer-logo" viewBox="0 0 476 526" aria-hidden="true">
+                <g transform="translate(0,526) scale(0.1,-0.1)" fill="currentColor" stroke="none">
+                  <path d="M754 4808 c-68 -132 -124 -438 -124 -678 0 -140 22 -365 50 -508 39 -200 143 -502 202 -584 l20 -29 -76 -79 c-41 -44 -96 -107 -120 -140 -62 -85 -165 -298 -224 -465 -44 -123 -57 -164 -87 -264 l-7 -23 91 7 c60 5 91 4 91 -3 0 -12 -26 -44 -128 -161 -41 -46 -70 -87 -65 -91 4 -4 35 -17 68 -29 81 -30 295 -126 375 -169 305 -163 666 -423 825 -595 81 -87 94 -104 186 -257 108 -178 227 -274 417 -339 200 -68 482 42 637 247 28 37 63 92 79 122 90 175 280 356 621 595 224 156 474 290 732 390 57 22 103 43 103 46 0 6 -115 140 -177 206 l-30 32 86 3 c50 2 85 7 84 13 -7 35 -93 267 -132 355 l-46 105 -165 5 c-91 3 -172 9 -180 14 -8 6 -53 40 -100 76 -215 168 -341 260 -353 260 -8 0 -45 -17 -83 -38 -55 -30 -70 -43 -72 -64 -4 -33 -45 -75 -82 -83 -55 -12 -130 49 -130 106 0 36 51 95 89 104 17 3 45 -1 69 -10 l40 -17 51 38 51 38 -37 38 c-45 47 -66 54 -95 34 -63 -44 -168 11 -168 89 0 55 52 105 110 105 57 0 110 -50 110 -103 0 -40 2 -42 47 -52 l32 -6 0 298 c1 164 -3 304 -8 312 -7 11 -26 2 -91 -43 -46 -31 -85 -55 -87 -52 -11 10 30 171 62 248 80 189 250 424 402 553 71 60 203 155 216 155 10 0 27 -65 47 -183 15 -90 20 -164 20 -302 l0 -182 -27 -36 c-16 -20 -59 -75 -97 -122 -37 -48 -66 -88 -64 -90 2 -2 35 18 73 45 39 27 73 49 78 50 14 0 7 -48 -18 -124 -38 -115 -70 -172 -118 -207 -34 -25 -147 -88 -191 -108 -5 -2 -7 36 -4 88 5 90 7 93 66 196 33 58 59 105 57 105 -2 0 -24 -9 -50 -20 -26 -11 -49 -20 -51 -20 -11 0 -1 30 26 84 29 56 70 175 70 200 0 6 -12 -5 -27 -24 -48 -61 -135 -149 -154 -155 -18 -6 -19 -22 -19 -329 0 -414 -1 -406 64 -454 28 -20 85 -64 127 -97 42 -33 116 -89 165 -125 l88 -64 118 -4 c87 -3 118 -1 118 7 0 26 -96 154 -206 274 l-72 78 52 102 c115 227 189 526 217 867 10 134 10 177 -5 320 -18 180 -41 302 -80 425 -45 141 -59 147 -204 91 -372 -144 -839 -500 -1086 -828 -23 -31 -35 -38 -62 -38 l-34 0 0 -323 0 -323 30 -34 c16 -19 29 -40 30 -47 0 -16 -38 -42 -81 -53 -21 -6 -64 -35 -103 -71 l-66 -61 0 -329 c0 -193 4 -329 9 -329 19 0 51 -68 51 -109 0 -53 -21 -85 -70 -105 -44 -17 -82 -10 -130 24 -50 35 -50 130 0 175 19 17 20 33 20 369 l0 352 95 92 95 91 -2 358 -3 358 -135 3 c-118 3 -180 -2 -330 -25 -34 -5 -37 -2 -117 94 -263 318 -648 605 -1016 758 -111 45 -151 46 -173 3z m228 -341 c238 -165 456 -446 559 -722 24 -66 59 -195 53 -195 -3 0 -24 13 -47 29 -23 15 -85 50 -137 76 -150 75 -199 112 -264 198 -20 27 -36 42 -36 33 0 -28 49 -147 85 -206 33 -54 42 -80 30 -80 -3 0 -28 11 -55 25 -77 39 -78 35 -10 -58 57 -80 85 -147 95 -236 l7 -64 -28 7 c-16 3 -75 29 -131 56 l-103 51 -35 74 c-38 79 -89 258 -75 263 5 2 34 -15 65 -38 30 -22 55 -35 55 -28 0 7 -26 56 -58 108 -33 52 -64 112 -71 133 -24 72 -14 342 20 527 17 95 14 93 81 47z m2018 -726 c57 -53 59 -66 18 -124 -19 -26 -19 -37 -10 -200 5 -95 6 -178 3 -185 -4 -7 -45 -45 -91 -85 -126 -109 -123 -102 -121 -274 l1 -83 31 0 c49 0 106 -38 129 -85 25 -52 25 -78 -1 -132 -54 -112 -221 -107 -275 7 -21 43 -22 54 -15 215 5 131 4 175 -6 190 -39 59 -5 114 137 226 l80 63 0 157 c0 120 -4 163 -15 185 -28 53 -20 92 27 135 24 22 46 39 49 39 4 0 30 -22 59 -49z m464 -1143 c-4 -7 -21 -33 -39 -58 -17 -25 -67 -105 -111 -179 -101 -170 -180 -257 -276 -306 -76 -38 -93 -38 -62 -2 50 56 144 237 123 237 -5 0 -36 -19 -67 -42 -208 -153 -302 -321 -347 -622 -10 -63 -16 -34 -16 75 0 126 20 233 60 331 62 150 77 186 92 209 17 25 150 104 354 209 176 91 264 140 270 151 9 14 27 11 19 -3z m-1889 -207 c72 -27 168 -65 215 -84 237 -99 213 -82 267 -195 45 -95 73 -242 73 -377 0 -110 -13 -146 -25 -68 -18 119 -67 270 -120 372 -32 61 -43 73 -93 99 -95 51 -242 111 -242 100 0 -14 54 -102 92 -150 75 -96 -89 6 -182 113 -36 40 -93 101 -127 135 l-62 61 22 21 c12 12 28 22 37 22 8 0 74 -22 145 -49z m-268 -383 c189 -96 341 -152 468 -174 64 -10 133 -35 160 -56 79 -62 118 -177 140 -416 22 -234 29 -259 80 -308 24 -22 60 -49 79 -59 61 -33 38 -49 -29 -21 -19 8 -37 11 -40 7 -7 -13 25 -101 52 -143 14 -20 51 -60 84 -88 49 -43 60 -57 57 -79 -7 -64 -152 -86 -251 -37 -103 50 -163 131 -207 276 -59 200 -91 279 -156 384 -39 63 -87 126 -96 126 -2 0 2 -37 8 -82 23 -153 26 -151 -78 -45 -194 194 -509 403 -790 521 -37 16 -66 32 -63 36 2 3 32 18 67 33 35 14 81 34 103 44 l40 18 -95 5 -95 5 45 43 c79 74 162 103 282 98 62 -3 81 -10 235 -88z m2710 78 c4 -4 -2 -23 -12 -43 -15 -27 -35 -44 -80 -65 -33 -15 -66 -28 -72 -28 -30 0 -10 -20 30 -30 64 -17 108 -31 157 -52 l45 -19 -120 -49 c-282 -114 -529 -277 -764 -504 l-104 -101 7 70 c4 39 10 90 13 115 l5 45 -25 -30 c-72 -84 -148 -251 -202 -443 -51 -180 -110 -268 -210 -317 -74 -37 -175 -39 -228 -6 -56 34 -50 58 30 127 80 67 97 88 124 149 28 63 22 73 -40 67 -28 -2 -51 -2 -51 1 0 3 21 16 46 28 25 13 62 42 83 64 44 48 61 117 61 246 0 100 24 252 51 324 24 66 85 137 139 165 20 10 65 26 99 35 155 40 382 128 495 191 129 72 144 75 339 71 98 -3 181 -7 184 -11z" />
+                  <path d="M2765 2695 c-29 -28 -31 -54 -10 -95 28 -54 102 -52 135 3 26 42 26 43 -14 83 -41 41 -77 44 -111 9z" />
+                  <path d="M3140 3106 c0 -10 9 -16 21 -16 24 0 21 23 -4 28 -10 2 -17 -3 -17 -12z" />
+                  <path d="M2360 2284 c-19 -22 -1 -68 27 -72 50 -7 83 44 51 76 -17 17 -63 15 -78 -4z" />
+                </g>
+              </svg>
+            </a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/js/main.js"></script>
+  </body>
+</html>
