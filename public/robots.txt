@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.belnexenergy.be/sitemap.xml
+Sitemap: https://belnexenergy.be/sitemap.xml
