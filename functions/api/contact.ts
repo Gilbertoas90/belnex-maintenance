@@ -42,11 +42,6 @@ function json(
     success: boolean;
     message: string;
     ok?: boolean;
-    missing?: string[];
-    provider?: string;
-    error?: string;
-    code?: string;
-    statusCode?: number;
   },
   status = 200,
   headers: Record<string, string> = {}
@@ -86,8 +81,8 @@ function isPayload(value: unknown): value is ContactPayload {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-function getMissingEnv(env: Env): string[] {
-  return ['RESEND_API_KEY', 'CONTACT_EMAIL', 'FROM_EMAIL'].filter((key) => !env[key as keyof Env]);
+function hasRequiredEnv(env: Env): env is Required<Env> {
+  return Boolean(env.RESEND_API_KEY && env.CONTACT_EMAIL && env.FROM_EMAIL);
 }
 
 function validate(payload: ContactPayload): { data?: ContactData; message?: string } {
@@ -177,48 +172,11 @@ function confirmationEmailHtml(name: string): string {
   `;
 }
 
-class ResendSendError extends Error {
-  code?: string;
-  statusCode?: number;
-
-  constructor(message: string, code?: string, statusCode?: number) {
-    super(message);
-    this.name = 'ResendSendError';
-    this.code = code;
-    this.statusCode = statusCode;
-  }
-}
-
-function getSafeResendError(error: unknown): { error: string; code?: string; statusCode?: number } {
-  if (error instanceof ResendSendError) {
-    return {
-      error: error.message,
-      code: error.code,
-      statusCode: error.statusCode,
-    };
-  }
-
-  if (error instanceof Error) {
-    return { error: error.message };
-  }
-
-  return { error: 'unknown' };
-}
-
 async function sendEmail(resend: Resend, payload: Parameters<Resend['emails']['send']>[0]): Promise<void> {
   const response = await resend.emails.send(payload);
 
   if (response.error) {
-    const statusCode =
-      'statusCode' in response.error && typeof response.error.statusCode === 'number'
-        ? response.error.statusCode
-        : undefined;
-
-    throw new ResendSendError(
-      response.error.message || response.error.name || 'resend_error',
-      response.error.name,
-      statusCode
-    );
+    throw new Error('resend_error');
   }
 }
 
@@ -233,12 +191,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   try {
     payload = (await request.json()) as ContactPayload;
   } catch {
-    console.error('contact_api_malformed_request');
     return json({ success: false, ok: false, message: 'Malformed request.' }, 400);
   }
 
   if (!isPayload(payload)) {
-    console.error('contact_api_invalid_payload');
     return json({ success: false, ok: false, message: 'Empty or invalid request.' }, 400);
   }
 
@@ -251,15 +207,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return json({ success: false, ok: false, message: validation.message || 'Invalid request.' }, 400);
   }
 
-  const missing = getMissingEnv(env);
-  if (missing.length > 0) {
-    console.error('contact_api_missing_env', { missing });
-    return json(
-      { success: false, ok: false, message: 'Email service is not configured.', missing },
-      500
-    );
+  if (!hasRequiredEnv(env)) {
+    return json({ success: false, ok: false, message: 'Email service is not configured.' }, 500);
   }
-  const configuredEnv = env as Required<Env>;
+  const configuredEnv = env;
 
   const resend = new Resend(configuredEnv.RESEND_API_KEY);
   const { date, time } = formatDateTime();
@@ -280,19 +231,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       subject: 'Thank you for contacting BELNEX ENERGY',
       html: confirmationEmailHtml(data.name),
     });
-  } catch (error) {
-    const safeError = getSafeResendError(error);
-    console.error('contact_api_resend_failure', safeError);
-    return json(
-      {
-        success: false,
-        ok: false,
-        message: 'Unable to send email. Please try again later.',
-        provider: 'resend',
-        ...safeError,
-      },
-      502
-    );
+  } catch {
+    return json({ success: false, ok: false, message: 'Unable to send email. Please try again later.' }, 502);
   }
 
   return json({ success: true, ok: true, message: 'Thank you. Your request was sent successfully.' });
