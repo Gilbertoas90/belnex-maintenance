@@ -1,62 +1,383 @@
-# Belnex Energy — Website
+# BELNEX ENERGY — Website
 
-Landing page institucional da Belnex Energy (Bélgica), especializada em soluções elétricas, energia solar, automação residencial (smart home), armazenamento em bateria, carregadores de veículos elétricos, segurança (CCTV) e redes/conectividade. Objetivo principal: geração de leads via formulário de orçamento.
+<p align="center">
+  Website institucional da <strong>BELNEX ENERGY</strong>, empresa sediada na Bélgica e especializada em soluções elétricas, energia solar, automação residencial, armazenamento em bateria, carregadores de veículos elétricos, segurança e conectividade.
+</p>
 
-Site em produção: **https://belnex.netlify.app**
+<p align="center">
+  <a href="https://belnexenergy.be"><strong>belnexenergy.be</strong></a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Vite-7.x-646CFF?logo=vite&logoColor=white" alt="Vite">
+  <img src="https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/Cloudflare-Pages-F38020?logo=cloudflare&logoColor=white" alt="Cloudflare Pages">
+  <img src="https://img.shields.io/badge/Resend-Email-000000?logo=resend&logoColor=white" alt="Resend">
+  <img src="https://img.shields.io/badge/Status-Production-32CD32" alt="Production">
+  <img src="https://img.shields.io/badge/License-Proprietary-red" alt="Proprietary License">
+</p>
+
+---
+
+## Sobre o projeto
+
+Landing page institucional da **BELNEX ENERGY**, especializada em instalações elétricas, energia solar, automação residencial — Smart Home e KNX — armazenamento em bateria, carregadores de veículos elétricos, segurança por câmeras e infraestrutura de redes.
+
+O objetivo principal do website é apresentar os serviços da empresa de maneira profissional e gerar novos contatos por meio do formulário de solicitação de orçamento.
+
+**Site em produção:** https://belnexenergy.be
 
 ## Stack
 
-**HTML + CSS + JavaScript puro, via Vite (template vanilla) — sem framework de UI (React, Vue, etc.).**
+O projeto utiliza **HTML, CSS e JavaScript puro com Vite**, sem frameworks de interface como React ou Vue. Essa arquitetura mantém o website leve, rápido e adequado a uma landing page majoritariamente estática.
 
-Por quê: o site é uma landing page única, majoritariamente estática, sem estado complexo de aplicação. Um framework de componentes adicionaria peso e complexidade sem benefício real aqui — Vite entrega dev server, build otimizado (minificação, hashing de cache) e ES modules nativos, mantendo o bundle final mínimo e a hospedagem praticamente gratuita. Decisão detalhada em [`docs/adr/0001-stack.md`](docs/adr/0001-stack.md).
+Principais tecnologias:
 
-Outras peças do stack:
-- **i18n próprio** (EN/FR/NL/DE), client-side, sem bibliotecas externas — troca de idioma instantânea via `data-i18n` + um dicionário por idioma em `src/i18n/locales/`.
-- **Sharp** (script Node, não é dependência de runtime) para gerar imagens responsivas em AVIF/WebP/JPEG a partir das fotos originais.
-- **Netlify** para deploy (build automático a cada push em `main`).
+- **Vite** — desenvolvimento local e build de produção;
+- **HTML5, CSS3 e JavaScript** — estrutura, apresentação e interatividade;
+- **Cloudflare Pages** — hospedagem, CDN, HTTPS e deploy automático;
+- **Cloudflare Pages Functions** — backend serverless do formulário;
+- **Cloudflare Turnstile** — proteção contra spam e bots;
+- **Resend** — envio das notificações e confirmações por e-mail;
+- **Sharp** — geração de imagens responsivas em AVIF, WebP e JPEG;
+- **i18n próprio** — suporte aos idiomas EN, FR, NL e DE;
+- **GitHub** — versionamento e integração com o deploy.
 
-## Por que essas decisões
+A decisão técnica principal está documentada em [`docs/adr/0001-stack.md`](docs/adr/0001-stack.md).
 
-- **Design system com tokens semânticos** (cor, tipografia, espaçamento) em vez de valores soltos — ver [`docs/adr/0002-design-system.md`](docs/adr/0002-design-system.md).
-- **Animações via CSS nativo** (`animation-timeline`) com fallback em JavaScript apenas quando necessário — zero bibliotecas de animação. Ver [`docs/adr/0003-animation-strategy.md`](docs/adr/0003-animation-strategy.md).
-- **Um CTA primário por seção**, hierarquia visual pensada para conversão (o site "vende sozinho"). Ver [`docs/adr/0004-visual-hierarchy-conversion.md`](docs/adr/0004-visual-hierarchy-conversion.md).
-- **Imagens responsivas com dimensões explícitas** para não causar layout shift. Ver [`docs/adr/0005-media-images.md`](docs/adr/0005-media-images.md).
-- **SEO estruturado** (JSON-LD `ElectricalContractor`, Open Graph, sitemap). Ver [`docs/adr/0006-seo-metadata.md`](docs/adr/0006-seo-metadata.md).
+## Decisões de arquitetura
 
-O processo completo (problema de negócio, personas, requisitos, critérios de aceite, e a auditoria final de qualidade) está documentado em [`docs/spec.md`](docs/spec.md), [`docs/plan.md`](docs/plan.md) e [`docs/audit.md`](docs/audit.md).
+O projeto utiliza design tokens, animações nativas em CSS, hierarquia visual orientada à conversão, imagens responsivas com dimensões explícitas e SEO estruturado.
 
-## O que foi construído
+Documentação:
 
-Landing page de página única com: header com navegação e seletor de idioma, hero, faixa de categorias de serviço, seção "What We Do" com carrossel de cards (foto + descrição por categoria), prova social (depoimentos, estatísticas, certificações), seção sobre a empresa, FAQ (accordion nativo, sem JS), CTA final, formulário de orçamento com validação nativa, e footer.
+- [`docs/adr/0002-design-system.md`](docs/adr/0002-design-system.md)
+- [`docs/adr/0003-animation-strategy.md`](docs/adr/0003-animation-strategy.md)
+- [`docs/adr/0004-visual-hierarchy-conversion.md`](docs/adr/0004-visual-hierarchy-conversion.md)
+- [`docs/adr/0005-media-images.md`](docs/adr/0005-media-images.md)
+- [`docs/adr/0006-seo-metadata.md`](docs/adr/0006-seo-metadata.md)
+- [`docs/spec.md`](docs/spec.md)
+- [`docs/plan.md`](docs/plan.md)
+- [`docs/audit.md`](docs/audit.md)
 
-Resultado de auditoria (Lighthouse, mobile e desktop): Performance, Accessibility, Best Practices e SEO todos ≥99/100, CLS 0.
+## Funcionalidades
 
-## Rodando localmente
+- navegação responsiva;
+- seletor de idioma;
+- hero section;
+- apresentação dos serviços;
+- carrossel com imagens e descrições;
+- prova social, depoimentos e estatísticas;
+- certificações;
+- seção institucional;
+- FAQ;
+- CTA final;
+- formulário de solicitação de orçamento;
+- SEO, sitemap, robots.txt e dados estruturados;
+- otimização de desempenho e acessibilidade.
+
+## Formulário de contato
+
+O formulário é processado por uma **Cloudflare Pages Function**, protegido pelo **Cloudflare Turnstile** e integrado ao **Resend**.
+
+Fluxo de envio:
+
+1. os dados são validados no frontend;
+2. o Turnstile verifica a solicitação;
+3. a Cloudflare Function valida e processa os dados;
+4. a BELNEX ENERGY recebe uma notificação;
+5. o cliente recebe uma confirmação automática.
+
+Endpoint:
+
+```text
+functions/api/contact.ts
+```
+
+Rota pública:
+
+```text
+POST /api/contact
+```
+
+O frontend envia os dados para:
+
+```text
+/api/contact
+```
+
+## Variáveis de ambiente
+
+As variáveis abaixo devem ser configuradas no **Cloudflare Pages**, separadamente para os ambientes **Production** e **Preview**, quando aplicável.
+
+```text
+RESEND_API_KEY
+CONTACT_EMAIL
+FROM_EMAIL
+TURNSTILE_SECRET_KEY
+```
+
+Descrição:
+
+- `RESEND_API_KEY` — chave da API do Resend;
+- `CONTACT_EMAIL` — e-mail que receberá os pedidos de orçamento;
+- `FROM_EMAIL` — remetente autorizado no domínio verificado do Resend;
+- `TURNSTILE_SECRET_KEY` — chave secreta do Cloudflare Turnstile.
+
+A chave pública do Turnstile fica no HTML:
+
+```text
+0x4AAAAAAD4jGQU5FkQe57PV
+```
+
+A chave secreta nunca deve ser versionada no repositório.
+
+## Segurança
+
+O projeto aplica boas práticas de segurança compatíveis com Cloudflare Pages:
+
+- validação de payload no backend;
+- limitação de tamanho do corpo da requisição;
+- proteção contra HTML Injection nos e-mails;
+- proteção contra Header Injection;
+- rejeição de JSON malformado;
+- rejeição de métodos não suportados;
+- respostas JSON consistentes;
+- Cloudflare Turnstile contra spam e automação;
+- secrets lidos apenas via `context.env`;
+- headers de segurança definidos em `public/_headers`.
+
+Headers configurados:
+
+- `Content-Security-Policy`;
+- `Referrer-Policy`;
+- `X-Content-Type-Options`;
+- `X-Frame-Options`;
+- `Permissions-Policy`;
+- `Cache-Control`.
+
+## SEO
+
+O website inclui:
+
+- title e meta description;
+- canonical URL;
+- Open Graph;
+- Twitter Cards;
+- favicon;
+- `robots.txt`;
+- `sitemap.xml`;
+- JSON-LD com dados estruturados;
+- HTML semântico;
+- imagens com dimensões explícitas;
+- conteúdo otimizado para uma empresa local de serviços técnicos na Bélgica.
+
+## Performance
+
+O projeto foi construído com foco em leveza e velocidade.
+
+Principais práticas:
+
+- JavaScript mínimo;
+- CSS modular;
+- ausência de frameworks de interface;
+- imagens responsivas;
+- formatos AVIF, WebP e JPEG;
+- fontes self-hosted;
+- preload de fontes essenciais;
+- lazy loading em imagens não críticas;
+- build estático com Vite;
+- hospedagem via Cloudflare CDN.
+
+## Acessibilidade
+
+Boas práticas aplicadas:
+
+- navegação por teclado;
+- skip link;
+- labels associados aos campos;
+- mensagens de erro acessíveis;
+- `aria-live` no status do formulário;
+- contraste compatível com o tema escuro;
+- estrutura semântica;
+- estados de foco visíveis;
+- textos alternativos e imagens decorativas tratadas corretamente.
+
+## Estrutura do projeto
+
+```text
+.
+├── docs/
+│   ├── adr/
+│   ├── audit.md
+│   ├── plan.md
+│   └── spec.md
+├── functions/
+│   └── api/
+│       └── contact.ts
+├── public/
+│   ├── _headers
+│   ├── favicon.svg
+│   ├── robots.txt
+│   ├── sitemap.xml
+│   ├── fonts/
+│   └── images/
+├── scripts/
+│   └── optimize-images.mjs
+├── src/
+│   ├── i18n/
+│   ├── js/
+│   └── styles/
+├── index.html
+├── package.json
+├── package-lock.json
+├── vite.config.js
+└── README.md
+```
+
+## Scripts
+
+Instalar dependências:
 
 ```bash
 npm install
-npm run dev       # servidor de desenvolvimento
-npm run build     # build de produção em dist/
-npm run preview   # serve o build de produção localmente
 ```
 
-## Estrutura
+Rodar em desenvolvimento:
 
-```
-index.html               # página única
-src/
-  data/services.js       # taxonomia de serviços (fonte única de dados)
-  i18n/                   # dicionários EN/FR/NL/DE + troca de idioma
-  js/                     # comportamento (nav, formulário, carrossel, i18n, etc.)
-  styles/                 # tokens + estilos por seção
-  assets/images/          # fotos originais (processadas pelo pipeline)
-scripts/
-  optimize-images.mjs     # gera AVIF/WebP/JPEG responsivos
-docs/
-  spec.md, plan.md, adr/  # especificação, plano técnico e decisões de arquitetura
-  audit.md                # auditoria final de qualidade
+```bash
+npm run dev
 ```
 
-## Deploy
+Gerar build de produção:
 
-Deploy automático no Netlify a cada push em `main`. O código também é espelhado, em marcos de entrega, no repositório do cliente (`Gilbertoas90/belnex-energy-website`) como remote `client`.
+```bash
+npm run build
+```
+
+Pré-visualizar o build:
+
+```bash
+npm run preview
+```
+
+O script de build também executa a otimização de imagens:
+
+```bash
+npm run build:images
+```
+
+## Build e deploy
+
+O projeto está preparado para **Cloudflare Pages**.
+
+Configuração recomendada:
+
+```text
+Build command: npm run build
+Build output directory: dist
+Functions directory: functions
+```
+
+O Cloudflare Pages detecta a pasta `functions/` e publica automaticamente a rota serverless:
+
+```text
+/api/contact
+```
+
+## Cloudflare Pages
+
+A hospedagem em Cloudflare Pages fornece:
+
+- CDN global;
+- HTTPS automático;
+- deploy a partir do GitHub;
+- Functions serverless;
+- compressão automática;
+- cache de assets estáticos;
+- execução na edge.
+
+Arquivos importantes para Cloudflare:
+
+```text
+public/_headers
+functions/api/contact.ts
+```
+
+## Imagens
+
+As imagens originais são processadas com **Sharp** para gerar versões otimizadas em múltiplos tamanhos e formatos.
+
+Formatos gerados:
+
+- AVIF;
+- WebP;
+- JPEG.
+
+O objetivo é reduzir peso de página sem sacrificar qualidade visual.
+
+## Internacionalização
+
+O projeto possui suporte multilíngue por meio de um sistema i18n próprio em JavaScript.
+
+Idiomas suportados:
+
+- English;
+- Français;
+- Nederlands;
+- Deutsch.
+
+Os conteúdos localizados ficam em:
+
+```text
+src/i18n/locales/
+```
+
+## Manutenção
+
+Princípios de manutenção:
+
+- manter o projeto simples;
+- evitar dependências desnecessárias;
+- priorizar performance;
+- manter o backend limitado a Cloudflare Pages Functions;
+- não introduzir frameworks de interface sem necessidade;
+- manter respostas de API previsíveis;
+- não versionar secrets;
+- validar o build antes de cada deploy.
+
+## Checklist de produção
+
+Antes de publicar alterações:
+
+- confirmar que não há secrets no repositório;
+- rodar `npm run build`;
+- verificar o formulário de contato;
+- testar Turnstile em produção;
+- confirmar envio via Resend;
+- revisar headers em `public/_headers`;
+- confirmar sitemap e robots;
+- verificar responsividade;
+- revisar console do navegador;
+- confirmar deploy no Cloudflare Pages.
+
+---
+
+## Credits
+
+Developed by **Gilberto Assunção Soares** *(Founder · Owner · Lead Developer)*
+
+With collaboration from **Brunno Mota** *(Developer)*
+
+- GitHub: https://github.com/Gilbertoas90
+- Portfolio: https://brunnomota.com.br
+
+---
+
+## License
+
+Copyright © 2026 **BELNEX ENERGY**.
+
+All rights reserved.
+
+This project, its source code, visual identity and associated materials are the exclusive property of **BELNEX ENERGY**. Unauthorized copying, redistribution, publication or commercial use is prohibited.
