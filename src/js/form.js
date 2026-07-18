@@ -12,14 +12,14 @@ function getErrorMessage(field) {
   return t('contact.form.errorGeneric');
 }
 
-async function submitLead(formData) {
+async function submitLead(formData, turnstileToken) {
   const payload = {
     name: formData.get('name'),
     email: formData.get('email'),
     phone: formData.get('phone'),
     service: formData.get('service'),
     message: formData.get('message'),
-    turnstileToken: formData.get('cf-turnstile-response'),
+    turnstileToken,
   };
 
   const response = await fetch('/api/contact', {
@@ -53,10 +53,10 @@ function createMailto(formData) {
   return `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
 }
 
-function initTurnstile(form) {
+function initTurnstile(form, setToken) {
   const widget = form.querySelector('[data-turnstile-widget]');
   const errorEl = form.querySelector('[data-turnstile-error]');
-  if (!widget) return { reset() {} };
+  if (!widget) return { reset() {}, showError() {} };
 
   let widgetId = null;
   let attempts = 0;
@@ -90,13 +90,22 @@ function initTurnstile(form) {
       widgetId = window.turnstile.render(widget, {
         sitekey: widget.dataset.sitekey,
         theme: 'dark',
-        callback: hideError,
+        callback(token) {
+          setToken(token);
+          hideError();
+        },
         'error-callback': () => {
+          setToken('');
           showError();
           return true;
         },
-        'expired-callback': showError,
-        'unsupported-callback': showError,
+        'expired-callback': () => {
+          setToken('');
+        },
+        'unsupported-callback': () => {
+          setToken('');
+          showError();
+        },
       });
       widget.dataset.rendered = 'true';
       widget.dataset.state = 'ready';
@@ -109,6 +118,7 @@ function initTurnstile(form) {
     reset() {
       if (widgetId) window.turnstile?.reset?.(widgetId);
     },
+    showError,
   };
 }
 
@@ -118,7 +128,10 @@ export function initContactForm(form) {
   const status = form.querySelector('[data-form-status]');
   const submitButton = form.querySelector('[type="submit"]');
   const successEl = document.querySelector('[data-form-success]');
-  const turnstile = initTurnstile(form);
+  let turnstileToken = '';
+  const turnstile = initTurnstile(form, (token) => {
+    turnstileToken = token;
+  });
 
   const fields = FIELD_NAMES.map((name) => form.elements[name]).filter(Boolean);
 
@@ -166,12 +179,17 @@ export function initContactForm(form) {
       return;
     }
 
+    if (!turnstileToken) {
+      turnstile.showError();
+      return;
+    }
+
     submitButton.disabled = true;
     submitButton.textContent = t('contact.form.sending');
 
     try {
       const formData = new FormData(form);
-      const result = await submitLead(formData);
+      const result = await submitLead(formData, turnstileToken);
 
       if (result.fallback) {
         if (status) {
@@ -201,6 +219,7 @@ export function initContactForm(form) {
       }
     } finally {
       turnstile.reset();
+      turnstileToken = '';
       submitButton.disabled = false;
       submitButton.textContent = t('contact.form.submit');
     }
