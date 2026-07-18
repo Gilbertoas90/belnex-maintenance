@@ -4,6 +4,7 @@ type Env = {
   RESEND_API_KEY?: string;
   CONTACT_EMAIL?: string;
   FROM_EMAIL?: string;
+  TURNSTILE_SECRET_KEY?: string;
 };
 
 type PagesFunction<EnvBindings> = (context: {
@@ -17,6 +18,7 @@ type ContactPayload = {
   phone?: unknown;
   service?: unknown;
   message?: unknown;
+  turnstileToken?: unknown;
   'bot-field'?: unknown;
 };
 
@@ -81,8 +83,31 @@ function isPayload(value: unknown): value is ContactPayload {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-function hasRequiredEnv(env: Env): env is Required<Env> {
+type EmailEnv = Required<Pick<Env, 'RESEND_API_KEY' | 'CONTACT_EMAIL' | 'FROM_EMAIL'>>;
+
+function hasRequiredEmailEnv(env: Env): env is Env & EmailEnv {
   return Boolean(env.RESEND_API_KEY && env.CONTACT_EMAIL && env.FROM_EMAIL);
+}
+
+async function verifyTurnstile(token: string, secret: string, remoteIp: string | null): Promise<boolean> {
+  if (!token) return false;
+
+  const body = new FormData();
+  body.append('secret', secret);
+  body.append('response', token);
+  if (remoteIp) body.append('remoteip', remoteIp);
+
+  try {
+    const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      body,
+    });
+    const result = (await response.json()) as { success?: boolean };
+
+    return response.ok && result.success === true;
+  } catch {
+    return false;
+  }
 }
 
 function validate(payload: ContactPayload): { data?: ContactData; message?: string } {
@@ -202,12 +227,26 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return json({ success: true, ok: true, message: 'Request received.' });
   }
 
+  if (!env.TURNSTILE_SECRET_KEY) {
+    return json({ success: false, ok: false, message: 'Security service is not configured.' }, 500);
+  }
+
+  const turnstileVerified = await verifyTurnstile(
+    clean(payload.turnstileToken),
+    env.TURNSTILE_SECRET_KEY,
+    request.headers.get('CF-Connecting-IP')
+  );
+
+  if (!turnstileVerified) {
+    return json({ success: false, ok: false, message: 'Security verification failed.' }, 400);
+  }
+
   const validation = validate(payload);
   if (!validation.data) {
     return json({ success: false, ok: false, message: validation.message || 'Invalid request.' }, 400);
   }
 
-  if (!hasRequiredEnv(env)) {
+  if (!hasRequiredEmailEnv(env)) {
     return json({ success: false, ok: false, message: 'Email service is not configured.' }, 500);
   }
   const configuredEnv = env;

@@ -14,6 +14,7 @@
     <!-- Preload self-hosted fonts to shrink the fallback→final swap window (reduces CLS, see docs/adr/0002) -->
     <link rel="preload" href="/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/orbitron-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
     <!-- Open Graph / Twitter Card — see docs/adr/0006-seo-metadata.md -->
     <meta property="og:type" content="website" />
@@ -467,6 +468,12 @@
                 <textarea id="message" name="message" rows="4" required></textarea>
                 <p class="form-error" data-error-for="message" role="alert"></p>
               </div>
+
+              <div
+                class="cf-turnstile"
+                data-sitekey="0x4AAAAAAAD4jG0U5FkQe57PV"
+                data-theme="dark"
+              ></div>
 
               <p class="contact__status" data-form-status role="status" aria-live="polite"></p>
               <a class="contact__fallback-link" href="mailto:contact@belnexenergy.be" data-form-mailto hidden>

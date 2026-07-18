@@ -18,6 +18,7 @@ async function submitLead(formData) {
     phone: formData.get('phone'),
     service: formData.get('service'),
     message: formData.get('message'),
+    turnstileToken: formData.get('cf-turnstile-response'),
   };
 
   const response = await fetch('/api/contact', {
@@ -138,6 +139,7 @@ export function initContactForm(form) {
         fallbackLink.hidden = false;
       }
     } finally {
+      window.turnstile?.reset?.();
       submitButton.disabled = false;
       submitButton.textContent = t('contact.form.submit');
     }
