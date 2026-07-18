@@ -38,7 +38,7 @@ const LIMITS = {
 } as const;
 
 function json(
-  body: { success: boolean; message: string; ok?: boolean },
+  body: { success: boolean; message: string; ok?: boolean; missing?: string[] },
   status = 200,
   headers: Record<string, string> = {}
 ): Response {
@@ -81,8 +81,12 @@ function isPayload(value: unknown): value is ContactPayload {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
+function getMissingEnv(env: Env): string[] {
+  return ['RESEND_API_KEY', 'CONTACT_EMAIL', 'FROM_EMAIL'].filter((key) => !env[key as keyof Env]);
+}
+
 function hasEnv(env: Env): env is Required<Env> {
-  const missing = ['RESEND_API_KEY', 'CONTACT_EMAIL', 'FROM_EMAIL'].filter((key) => !env[key as keyof Env]);
+  const missing = getMissingEnv(env);
 
   if (missing.length) {
     console.error('contact_api_missing_env', { missing });
@@ -227,7 +231,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   }
 
   if (!hasEnv(env)) {
-    return json({ success: false, ok: false, message: 'Email service is not configured.' }, 500);
+    return json(
+      { success: false, ok: false, message: 'Email service is not configured.', missing: getMissingEnv(env) },
+      500
+    );
   }
 
   const resend = new Resend(env.RESEND_API_KEY);
