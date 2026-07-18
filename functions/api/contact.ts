@@ -44,8 +44,7 @@ function json(
     success: boolean;
     message: string;
     ok?: boolean;
-    turnstileErrors?: string[];
-    hostname?: string | null;
+    rawVerification?: TurnstileVerificationResult;
   },
   status = 200,
   headers: Record<string, string> = {}
@@ -254,8 +253,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
         success: false,
         ok: false,
         message: 'Security verification failed.',
-        turnstileErrors: verificationResult['error-codes'] ?? [],
-        hostname: verificationResult.hostname ?? null,
+        rawVerification: verificationResult,
       },
       400
     );
