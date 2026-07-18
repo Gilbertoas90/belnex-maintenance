@@ -109,6 +109,23 @@
   color: var(--color-error);
 }
 
+.contact__status[data-state="success"] {
+  color: var(--color-accent);
+}
+
+.contact__fallback-link {
+  width: fit-content;
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.contact__fallback-link[hidden] {
+  display: none;
+}
+
 .contact__submit {
   justify-self: start;
 }

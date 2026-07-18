@@ -182,6 +182,7 @@ export default {
       errorGeneric: 'Please check this field.',
       errorFixFields: 'Please fix the highlighted fields and try again.',
       errorSubmit: 'Something went wrong. Please try again or email us directly.',
+      fallbackEmail: 'Your email app will open with the quote request ready to send.',
     },
   },
   footer: {

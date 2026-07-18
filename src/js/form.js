@@ -1,26 +1,7 @@
 import { t } from '../i18n/index.js';
 
 const FIELD_NAMES = ['name', 'email', 'phone', 'service', 'message'];
-
-function encodeFormData(formData) {
-  return Array.from(formData.entries())
-    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-    .join('&');
-}
-
-// Netlify Forms: submitting via fetch (rather than a native page-reload
-// POST) keeps the existing success/error UI. The form must stay in the
-// pre-rendered HTML with data-netlify="true" and a form-name field so
-// Netlify's build-time crawler can detect it — see index.html.
-async function submitLead(formData) {
-  const response = await fetch('/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: encodeFormData(formData),
-  });
-  if (!response.ok) throw new Error(`Form submission failed: ${response.status}`);
-  return response;
-}
+const CONTACT_EMAIL = 'contact@belnexenergy.be';
 
 function getErrorMessage(field) {
   if (field.validity.valueMissing) return t('contact.form.errorRequired');
@@ -28,6 +9,46 @@ function getErrorMessage(field) {
     return t('contact.form.errorEmail');
   }
   return t('contact.form.errorGeneric');
+}
+
+async function submitLead(formData) {
+  const payload = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    phone: formData.get('phone'),
+    service: formData.get('service'),
+    message: formData.get('message'),
+  };
+
+  const response = await fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok || result.ok === false) {
+    throw new Error(result.message || `Form submission failed: ${response.status}`);
+  }
+
+  return result;
+}
+
+function createMailto(formData) {
+  const subject = encodeURIComponent(`Quote request - ${formData.get('service') || 'Belnex Energy'}`);
+  const body = encodeURIComponent(
+    [
+      `Full name: ${formData.get('name') || ''}`,
+      `Email: ${formData.get('email') || ''}`,
+      `Phone: ${formData.get('phone') || ''}`,
+      `Service: ${formData.get('service') || ''}`,
+      '',
+      'Project details:',
+      formData.get('message') || '',
+    ].join('\n')
+  );
+
+  return `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
 }
 
 export function initContactForm(form) {
@@ -87,16 +108,34 @@ export function initContactForm(form) {
     submitButton.textContent = t('contact.form.sending');
 
     try {
-      await submitLead(new FormData(form));
+      const formData = new FormData(form);
+      const result = await submitLead(formData);
+
+      if (result.fallback) {
+        if (status) {
+          status.textContent = result.message || t('contact.form.fallbackEmail');
+          status.dataset.state = 'success';
+        }
+        window.location.href = result.mailto || createMailto(formData);
+        return;
+      }
+
       form.hidden = true;
       if (successEl) {
         successEl.hidden = false;
         successEl.focus();
       }
     } catch (error) {
+      const formData = new FormData(form);
       if (status) {
-        status.textContent = t('contact.form.errorSubmit');
+        status.textContent = error.message || t('contact.form.errorSubmit');
         status.dataset.state = 'error';
+      }
+
+      const fallbackLink = form.querySelector('[data-form-mailto]');
+      if (fallbackLink) {
+        fallbackLink.href = createMailto(formData);
+        fallbackLink.hidden = false;
       }
     } finally {
       submitButton.disabled = false;
