@@ -84,32 +84,28 @@ function initTurnstile(form, setToken) {
       return;
     }
 
-    window.turnstile.ready(() => {
-      if (widget.dataset.rendered === 'true') return;
-
-      widgetId = window.turnstile.render(widget, {
-        sitekey: widget.dataset.sitekey,
-        theme: 'dark',
-        callback(token) {
-          setToken(token);
-          hideError();
-        },
-        'error-callback': () => {
-          setToken('');
-          showError();
-          return true;
-        },
-        'expired-callback': () => {
-          setToken('');
-        },
-        'unsupported-callback': () => {
-          setToken('');
-          showError();
-        },
-      });
-      widget.dataset.rendered = 'true';
-      widget.dataset.state = 'ready';
+    widgetId = window.turnstile.render(widget, {
+      sitekey: widget.dataset.sitekey,
+      theme: 'dark',
+      callback(token) {
+        setToken(token);
+        hideError();
+      },
+      'error-callback': () => {
+        setToken('');
+        showError();
+        return true;
+      },
+      'expired-callback': () => {
+        setToken('');
+      },
+      'unsupported-callback': () => {
+        setToken('');
+        showError();
+      },
     });
+    widget.dataset.rendered = 'true';
+    widget.dataset.state = 'ready';
   };
 
   render();
