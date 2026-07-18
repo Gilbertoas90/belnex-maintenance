@@ -2,6 +2,7 @@ import { t } from '../i18n/index.js';
 
 const FIELD_NAMES = ['name', 'email', 'phone', 'service', 'message'];
 const CONTACT_EMAIL = 'contact@belnexenergy.be';
+const TURNSTILE_ERROR_MESSAGE = 'Security check unavailable. Please refresh and try again.';
 
 function getErrorMessage(field) {
   if (field.validity.valueMissing) return t('contact.form.errorRequired');
@@ -52,12 +53,72 @@ function createMailto(formData) {
   return `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
 }
 
+function initTurnstile(form) {
+  const widget = form.querySelector('[data-turnstile-widget]');
+  const errorEl = form.querySelector('[data-turnstile-error]');
+  if (!widget) return { reset() {} };
+
+  let widgetId = null;
+  let attempts = 0;
+
+  const showError = () => {
+    widget.dataset.state = 'error';
+    if (errorEl) {
+      errorEl.textContent = TURNSTILE_ERROR_MESSAGE;
+      errorEl.hidden = false;
+    }
+  };
+
+  const hideError = () => {
+    widget.dataset.state = 'ready';
+    if (errorEl) errorEl.hidden = true;
+  };
+
+  const render = () => {
+    if (widget.dataset.rendered === 'true') return;
+
+    if (!window.turnstile?.render) {
+      attempts += 1;
+      if (attempts > 80) showError();
+      else window.setTimeout(render, 250);
+      return;
+    }
+
+    window.turnstile.ready(() => {
+      if (widget.dataset.rendered === 'true') return;
+
+      widgetId = window.turnstile.render(widget, {
+        sitekey: widget.dataset.sitekey,
+        theme: 'dark',
+        callback: hideError,
+        'error-callback': () => {
+          showError();
+          return true;
+        },
+        'expired-callback': showError,
+        'unsupported-callback': showError,
+      });
+      widget.dataset.rendered = 'true';
+      widget.dataset.state = 'ready';
+    });
+  };
+
+  render();
+
+  return {
+    reset() {
+      if (widgetId) window.turnstile?.reset?.(widgetId);
+    },
+  };
+}
+
 export function initContactForm(form) {
   if (!form) return;
 
   const status = form.querySelector('[data-form-status]');
   const submitButton = form.querySelector('[type="submit"]');
   const successEl = document.querySelector('[data-form-success]');
+  const turnstile = initTurnstile(form);
 
   const fields = FIELD_NAMES.map((name) => form.elements[name]).filter(Boolean);
 
@@ -139,7 +200,7 @@ export function initContactForm(form) {
         fallbackLink.hidden = false;
       }
     } finally {
-      window.turnstile?.reset?.();
+      turnstile.reset();
       submitButton.disabled = false;
       submitButton.textContent = t('contact.form.submit');
     }

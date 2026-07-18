@@ -113,6 +113,29 @@
   color: var(--color-accent);
 }
 
+.contact__turnstile {
+  display: none;
+  min-height: 65px;
+}
+
+.contact__turnstile[data-state="ready"] {
+  display: block;
+}
+
+.contact__turnstile[data-state="error"] {
+  display: none;
+}
+
+.contact__turnstile-error {
+  color: var(--color-error);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.contact__turnstile-error[hidden] {
+  display: none;
+}
+
 .contact__fallback-link {
   width: fit-content;
   color: var(--color-accent);
