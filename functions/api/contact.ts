@@ -44,6 +44,8 @@ function json(
     success: boolean;
     message: string;
     ok?: boolean;
+    siteverifyStatus?: number | null;
+    siteverifyOk?: boolean;
     rawVerification?: TurnstileVerificationResult;
   },
   status = 200,
@@ -90,6 +92,11 @@ type TurnstileVerificationResult = {
   'error-codes'?: string[];
   hostname?: string;
 };
+type TurnstileVerification = {
+  siteverifyStatus: number | null;
+  siteverifyOk: boolean;
+  rawVerification: TurnstileVerificationResult;
+};
 
 function hasRequiredEmailEnv(env: Env): env is Env & EmailEnv {
   return Boolean(env.RESEND_API_KEY && env.CONTACT_EMAIL && env.FROM_EMAIL);
@@ -99,8 +106,14 @@ async function verifyTurnstile(
   token: string,
   secret: string,
   remoteIp: string | null
-): Promise<TurnstileVerificationResult> {
-  if (!token) return { success: false, 'error-codes': [] };
+): Promise<TurnstileVerification> {
+  if (!token) {
+    return {
+      siteverifyStatus: null,
+      siteverifyOk: false,
+      rawVerification: { success: false, 'error-codes': [] },
+    };
+  }
 
   const body = new FormData();
   body.append('secret', secret);
@@ -114,9 +127,17 @@ async function verifyTurnstile(
     });
     const result = (await response.json()) as TurnstileVerificationResult;
 
-    return response.ok ? result : { ...result, success: false };
+    return {
+      siteverifyStatus: response.status,
+      siteverifyOk: response.ok,
+      rawVerification: response.ok ? result : { ...result, success: false },
+    };
   } catch {
-    return { success: false, 'error-codes': [] };
+    return {
+      siteverifyStatus: null,
+      siteverifyOk: false,
+      rawVerification: { success: false, 'error-codes': [] },
+    };
   }
 }
 
@@ -241,19 +262,21 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return json({ success: false, ok: false, message: 'Security service is not configured.' }, 500);
   }
 
-  const verificationResult = await verifyTurnstile(
+  const verification = await verifyTurnstile(
     clean(payload.turnstileToken),
     env.TURNSTILE_SECRET_KEY,
     request.headers.get('CF-Connecting-IP')
   );
 
-  if (verificationResult.success !== true) {
+  if (verification.rawVerification.success !== true) {
     return json(
       {
         success: false,
         ok: false,
         message: 'Security verification failed.',
-        rawVerification: verificationResult,
+        siteverifyStatus: verification.siteverifyStatus,
+        siteverifyOk: verification.siteverifyOk,
+        rawVerification: verification.rawVerification,
       },
       400
     );
